@@ -8,9 +8,21 @@ use std::{
         ExitStatus
     },
 };
+mod util;
+use util::*;
 
 fn exit(e: ExitStatus) {
     process::exit(e.code().unwrap_or(0));
+}
+
+fn help() {
+    println!("Usage: liy {GREEN}[OPTIONS]{RESET}\n
+OPTIONS
+    add {RED}<package>{RESET}            Install a package.
+    del {RED}<package>{RESET}            Delete a package.
+    search {RED}<package>{RESET}         Search about a package.
+    up                       Update the system.
+        ");
 }
 
 fn main() -> Result<()> {
@@ -28,8 +40,8 @@ fn main() -> Result<()> {
                         .stderr(Stdio::inherit())
                         .spawn()?
                         .wait()?,
-                );  
-            } 
+                );
+            }
             "del" => {
                 exit(
                     Command::new("xbps-remove")
@@ -52,7 +64,7 @@ fn main() -> Result<()> {
                         .spawn()?
                         .wait()?,
                 );
-            } 
+            }
             "up" => {
                 exit(
                     Command::new("xbps-install")
@@ -64,15 +76,12 @@ fn main() -> Result<()> {
                         .spawn()?
                         .wait()?,
                 );
-            } it => println!("Unknown action {it}."),
+            }
+            "help" => {
+                help();
+            } it => println!("Unknown action {RED}{it}{RESET}."),
         },
-        None => println!("Usage: liy [OPTIONS]\n
-OPTIONS
-    add <package>            Install a package.
-    del <package>            Delete a package.
-    search <package>         Search about a package.
-    up                       Update the system.
-        "),
+        None => help(),
     }
     Ok(())
 }
