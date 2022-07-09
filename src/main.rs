@@ -18,10 +18,10 @@ fn exit(e: ExitStatus) {
 fn help() {
     println!("Usage: liy {GREEN}[OPTIONS]{RESET}\n
 OPTIONS
-    add {RED}<package>{RESET}            Install a package.
-    del {RED}<package>{RESET}            Delete a package.
-    search {RED}<package>{RESET}         Search about a package.
-    up                       Update the system.
+    add, a {RED}<package>{RESET}            Install a package.
+    del, d {RED}<package>{RESET}            Delete a package.
+    search, s {RED}<package>{RESET}         Search about a package.
+    up, u                       Update the system.
         ");
 }
 
@@ -30,7 +30,7 @@ fn main() -> Result<()> {
     args.next();
     match args.next() {
         Some(it) => match it.as_str() {
-            "add" => {
+            "add" | "a" => {
                exit(
                     Command::new("xbps-install")
                         .arg("-S")
@@ -42,7 +42,7 @@ fn main() -> Result<()> {
                         .wait()?,
                 );
             }
-            "del" => {
+            "del" | "d" => {
                 exit(
                     Command::new("xbps-remove")
                         .args(args)
@@ -53,7 +53,7 @@ fn main() -> Result<()> {
                         .wait()?,
                 );
             }
-            "search" => {
+            "search" | "s" => {
                exit(
                    Command::new("xbps-query")
                         .arg("-Rs")
@@ -65,7 +65,7 @@ fn main() -> Result<()> {
                         .wait()?,
                 );
             }
-            "up" => {
+            "up" | "u" => {
                 exit(
                     Command::new("xbps-install")
                         .arg("-Su")
@@ -77,9 +77,9 @@ fn main() -> Result<()> {
                         .wait()?,
                 );
             }
-            "help" => {
+            "help" | "h" => {
                 help();
-            } it => println!("Unknown action {RED}{it}{RESET}."),
+            } it => println!("Unknown action \"{RED}{it}{RESET}\". Use {RED}liy help{RESET} to see all commands."),
         },
         None => help(),
     }

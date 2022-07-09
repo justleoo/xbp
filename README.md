@@ -5,12 +5,9 @@
 
 ## installation
 
-1. clone the repo
-
-2. cd into the repo clone
-
-3. run:
-
 ```sh-session
-$ cargo install --path .
+$ git clone https://github.com/justleoo/liy.git && cd liy
+$ cargo build --release
+$ sudo mv target/release/liy /usr/bin/
+$ sudo chmod +x /usr/bin/liy
 ```
