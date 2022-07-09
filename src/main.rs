@@ -16,7 +16,7 @@ fn exit(e: ExitStatus) {
 }
 
 fn help() {
-    println!("Usage: liy {GREEN}[OPTIONS]{RESET}\n
+    println!("Usage: xbp {GREEN}[OPTIONS]{RESET}\n
 OPTIONS
     add, a {RED}<package>{RESET}            Install a package.
     del, d {RED}<package>{RESET}            Delete a package.
@@ -79,7 +79,7 @@ fn main() -> Result<()> {
             }
             "help" | "h" => {
                 help();
-            } it => println!("Unknown action \"{RED}{it}{RESET}\". Use {RED}liy help{RESET} to see all commands."),
+            } it => println!("Unknown action \"{RED}{it}{RESET}\". Use {RED}xbp help{RESET} to see all commands."),
         },
         None => help(),
     }
