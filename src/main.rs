@@ -1,29 +1,10 @@
 use std::{
     env,
     io::Result,
-    process::{
-        Command,
-        Stdio,
-        self,
-        ExitStatus
-    },
+    process::{Command, Stdio},
 };
 mod util;
 use util::*;
-
-fn exit(e: ExitStatus) {
-    process::exit(e.code().unwrap_or(0));
-}
-
-fn help() {
-    println!("Usage: xbp {GREEN}[OPTIONS]{RESET}\n
-OPTIONS
-    add, a {RED}<package>{RESET}            Install a package.
-    del, d {RED}<package>{RESET}            Delete a package.
-    search, s {RED}<package>{RESET}         Search about a package.
-    up, u                       Update the system.
-        ");
-}
 
 fn main() -> Result<()> {
     let mut args = env::args();
@@ -79,7 +60,7 @@ fn main() -> Result<()> {
             }
             "help" | "h" => {
                 help();
-            } it => println!("Unknown action \"{RED}{it}{RESET}\". Use {RED}xbp help{RESET} to see all commands."),
+            } it => println!("Unknown action \"{RED}{it}{RESET}\". Use {RED}xbp help{RESET} to see all commands."), 
         },
         None => help(),
     }
